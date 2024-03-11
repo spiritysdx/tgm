@@ -1,7 +1,7 @@
 package service
 
 import (
-	"gopkg.in/telebot.v3"
+	"g.in/telebot.v3gopk"
 	"strconv"
 	"time"
 )

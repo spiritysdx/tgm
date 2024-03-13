@@ -44,3 +44,5 @@ type TelegramChat struct {
 路径：```/plugin/telegram_message/view/index.vue```
 
 ![image](https://github.com/spiritysdx/tgm/assets/97792170/7b40a5ec-78a5-47b6-9cfa-d4a219578369)
+
+路径：

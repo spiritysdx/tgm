@@ -36,3 +36,11 @@ type TelegramChat struct {
 	Content string `json:"content"` // 发送的内容
 }
 ```
+
+### 后台设置
+
+![image](https://github.com/spiritysdx/tgm/assets/97792170/1c1468a9-a3dd-45ae-94fc-dd05c60f0eff)
+
+路径：```/plugin/telegram_message/view/index.vue```
+
+![image](https://github.com/spiritysdx/tgm/assets/97792170/7b40a5ec-78a5-47b6-9cfa-d4a219578369)

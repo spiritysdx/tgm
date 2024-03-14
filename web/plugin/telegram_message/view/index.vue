@@ -20,7 +20,7 @@
             type="textarea"
           />
         </el-form-item>
-        <el-form-item label="message_type">
+        <el-form-item label="消息类型">
           <el-select v-model="form.message_type" placeholder="消息类型">
             <el-option label="Markdown" value="markdown"></el-option>
             <el-option label="HTML" value="html"></el-option>

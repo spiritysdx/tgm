@@ -20,6 +20,12 @@
             type="textarea"
           />
         </el-form-item>
+        <el-form-item label="message_type">
+          <el-select v-model="form.message_type" placeholder="消息类型">
+            <el-option label="Markdown" value="markdown"></el-option>
+            <el-option label="HTML" value="html"></el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item>
           <el-button @click="sendTelegramMessage">发送消息</el-button>
         </el-form-item>
@@ -44,6 +50,7 @@ const form = reactive({
   token: '',
   chat_id: '',
   content: '',
+  message_type: 'markdown',
 })
 const sendTelegramMessage = async() => {
   const res = await sendMessage(form)

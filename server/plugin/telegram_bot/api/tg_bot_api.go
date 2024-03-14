@@ -16,7 +16,7 @@ type Telegram_botApi struct{}
 // @Summary 指定chat_id发送消息
 // @Security  ApiKeyAuth
 // @Produce  application/json
-// @Param    chat_id  content  "发送消息必须的参数"
+// @Param    token chat_id content  "发送消息必须的参数"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"发送成功"}"
 // @Router /telegram_bot/routerName [post]
 func (p *Telegram_botApi) SendMessage(c *gin.Context) {
@@ -26,7 +26,7 @@ func (p *Telegram_botApi) SendMessage(c *gin.Context) {
 		response.FailWithMessage(bindErr.Error(), c)
 		return
 	}
-	res, err := service.ServiceGroupApp.SendTgMessage(plug.Token, plug.ChatId, plug.Content)
+	res, err := service.ServiceGroupApp.SendTgMessage(plug.Token, plug.ChatId, plug.Content, plug.MessageType)
 	if err != nil {
 		global.GVA_LOG.Error("发送失败!", zap.Error(err))
 		response.FailWithMessage("发送失败", c)

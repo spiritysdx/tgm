@@ -1,6 +1,8 @@
 package service
 
 import (
+	"errors"
+	"fmt"
 	"gopkg.in/telebot.v3"
 	"strconv"
 	"time"

@@ -6,7 +6,15 @@
 
 ### 使用步骤
 
-#### 1. 前往GVA主程序下的initialize/router.go 在 Routers 方法最末尾按照你需要的及安全模式添加本插件
+#### 1
+
+查看 ```server/initialize/plugin.go``` 文件中是否已注册插件，如若未注册，在
+
+```
+func InstallPlugin
+```
+
+函数中插入
 
 ```
     PluginInit(PrivateGroup, telegram_bot.CreateTelegram_botPlug())
@@ -18,7 +26,7 @@
 
 ```
 type TelegramChat struct {
-    Token string // BOT的token
+	Token string `json:"token"` // Telegram的Bot的Token
 	ChatId  string `json:"chat_id"` // 发送的目标ID
 	Content string `json:"content"` // 发送的内容
 }

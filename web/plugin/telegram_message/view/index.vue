@@ -49,7 +49,7 @@ const telegramMessageForm = ref(null)
 const form = reactive({
   token: '可以用逗号分隔多个token传入，轮询发送消息，避免触发风控发送失败',
   chat_id: '',
-  content: '',
+  content: 'HTML示例：<code>1234</code>\nMarkdown示例：*1234*',
   message_type: 'markdown',
 })
 const sendTelegramMessage = async() => {

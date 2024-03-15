@@ -8,13 +8,19 @@
 
 #### 1
 
-查看 ```server/initialize/plugin.go``` 文件中是否已注册插件，如若未注册，在
+查看 ```server/initialize/plugin.go``` 文件中是否已注册插件，如若未注册，在import中增加
+
+```
+"github.com/flipped-aurora/gin-vue-admin/server/plugin/telegram_bot"
+```
+
+然后在函数
 
 ```
 func InstallPlugin
 ```
 
-函数中插入
+的尾部插入
 
 ```
     PluginInit(PrivateGroup, telegram_bot.CreateTelegram_botPlug())

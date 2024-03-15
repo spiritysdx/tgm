@@ -35,11 +35,11 @@ func (e *TelegramBotService) SendTgMessage(tokens, chatId, content, messageType 
 		var parseMode telebot.ParseMode
 		switch messageType {
 		case "html":
-			parseMode = telebot.ModeHTML
+		    parseMode = telebot.ModeHTML
 		case "markdown":
-			parseMode = telebot.ModeMarkdown
+		    parseMode = telebot.ModeMarkdown
 		default:
-			parseMode = telebot.ModeMarkdown
+		    parseMode = ""
 		}
 		msg, err := bot.Send(&telebot.Chat{ID: chatID}, content, telebot.SendOptions{ParseMode: parseMode})
 		if err != nil {

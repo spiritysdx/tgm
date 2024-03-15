@@ -18,6 +18,7 @@
           <el-input
             v-model="form.content"
             type="textarea"
+            :rows="6"
           />
         </el-form-item>
         <el-form-item label="消息类型">
@@ -32,7 +33,6 @@
       </el-form>
     </div>
   </div>
-
 </template>
 
 <script setup>
@@ -60,3 +60,10 @@ const sendTelegramMessage = async() => {
 }
 </script>
 
+<style scoped>
+/* 样式可以根据您的需求进行调整 */
+.gva-form-box {
+  max-width: 600px;
+  margin: 0 auto;
+}
+</style>

@@ -41,14 +41,14 @@ func (e *TelegramBotService) SendTgMessage(tokens, chatId, content, messageType 
 		default:
 			parseMode = telebot.ModeMarkdown
 		}
-		res, err = bot.Send(&telebot.Chat{ID: chatID}, content, telebot.SendOptions{ParseMode: parseMode})
+		msg, err := bot.Send(&telebot.Chat{ID: chatID}, content, telebot.SendOptions{ParseMode: parseMode})
 		if err != nil {
 			// 发送失败
 			lastError = errors.New(fmt.Sprintf("telebot send message failed for token%d: %v", index, err))
 			continue
 		}
 		// 发送成功
-		return fmt.Sprintf("telebot send message success with token%d: %v", index, res), nil
+		return fmt.Sprintf("telebot send message success with token%d: %v", index, msg.Text), nil
 	}
 	// 全部token发送都失败了
 	return "telebot send message failed", lastError

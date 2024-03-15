@@ -41,7 +41,7 @@ func (e *TelegramBotService) SendTgMessage(tokens, chatId, content, messageType 
 		default:
 		    parseMode = ""
 		}
-		msg, err := bot.Send(&telebot.Chat{ID: chatID}, content, telebot.SendOptions{ParseMode: parseMode})
+		msg, err := bot.Send(&telebot.Chat{ID: chatID}, content, &telebot.SendOptions{ParseMode: parseMode})
 		if err != nil {
 			// 发送失败
 			lastError = errors.New(fmt.Sprintf("telebot send message failed for token%d: %v", index, err))

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <warning-bar title="需要提前在Telegram申请一个Bot的Token，务必注意Token不要泄露给任何人" />
+    <warning-bar title="需要提前在Telegram申请Bot的Token，务必注意Token不要泄露给任何人，token可使用一个或多个" />
     <div class="gva-form-box">
       <el-form
         ref="telegramMessageForm"
@@ -47,7 +47,7 @@ defineOptions({
 
 const telegramMessageForm = ref(null)
 const form = reactive({
-  token: '',
+  token: '可以用逗号分隔多个token传入，轮询发送消息，避免触发风控发送失败',
   chat_id: '',
   content: '',
   message_type: 'markdown',

@@ -83,15 +83,17 @@ func (e *TelegramBotService) IsTgMember(tokens, userID, channelID string) (res s
 		}
 		member, err := bot.ChatMemberOf(telebot.ChatID(channelIDInt), telebot.ChatID(userIDInt))
 		if err != nil {
-			// 获取频道用户失败
+			// 查询不到用户
+			if strings.Contains(err.Error(), "user not found") {
+				return "false", nil
+			}
+			// 查询失败，但原因不是查不到用户
 			lastError = errors.New(fmt.Sprintf("bot get channel member failed for token%d: %v", index, err))
 			continue
 		} else {
-			// 判断是否获取到用户
+			// 查询到用户
 			if member != nil {
 				return "true", nil
-			} else {
-				return "false", nil
 			}
 		}
 	}

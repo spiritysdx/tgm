@@ -69,6 +69,6 @@ type MemberCheck struct {
 
 路径：```/telegram_bot/sendMessage```
 
-
+![image](https://github.com/spiritysdx/tgm/assets/97792170/be2479fe-c51a-40c6-9a3c-569258a3a8b2)
 
 路径：```/telegram_bot/isMember```

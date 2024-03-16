@@ -41,14 +41,14 @@ func (e *TelegramBotService) SendTgMessage(tokens, chatId, content, messageType 
 		default:
 			parseMode = ""
 		}
-		msg, err := bot.Send(&telebot.Chat{ID: chatID}, content, &telebot.SendOptions{ParseMode: parseMode})
+		_, err = bot.Send(&telebot.Chat{ID: chatID}, content, &telebot.SendOptions{ParseMode: parseMode})
 		if err != nil {
 			// 发送失败
 			lastError = errors.New(fmt.Sprintf("bot send message failed for token%d: %v", index, err))
 			continue
 		}
 		// 发送成功
-		return fmt.Sprintf("bot send message success with token%d: %v", index, msg.Text), nil
+		return fmt.Sprintf("bot send message success with token%d", index), nil
 	}
 	// 全部token发送都失败了
 	return "bot send message failed", lastError
@@ -86,12 +86,13 @@ func (e *TelegramBotService) IsTgMember(tokens, userID, channelID string) (res s
 			// 获取频道用户失败
 			lastError = errors.New(fmt.Sprintf("bot get channel member failed for token%d: %v", index, err))
 			continue
-		}
-		// 判断是否获取到用户
-		if member != nil {
-			return "true", nil
 		} else {
-			return "false", nil
+			// 判断是否获取到用户
+			if member != nil {
+				return "true", nil
+			} else {
+				return "false", nil
+			}
 		}
 	}
 	return "bot find member failed", lastError

@@ -31,13 +31,32 @@
           <el-button @click="sendTelegramMessage">发送消息</el-button>
         </el-form-item>
       </el-form>
+      <el-form
+        ref="isMemberForm"
+        label-position="right"
+        label-width="80px"
+        :model="memberForm"
+      >
+        <el-form-item label="token">
+          <el-input v-model="memberForm.token" />
+        </el-form-item>
+        <el-form-item label="user_id">
+          <el-input v-model="memberForm.user_id" />
+        </el-form-item>
+        <el-form-item label="channel_id">
+          <el-input v-model="memberForm.channel_id" />
+        </el-form-item>
+        <el-form-item>
+          <el-button @click="checkMembership">查询是否为频道用户</el-button>
+        </el-form-item>
+      </el-form>
     </div>
   </div>
 </template>
 
 <script setup>
 import WarningBar from '@/components/warningBar/warningBar.vue'
-import { sendMessage } from '@/plugin/telegram_message/api/message.js'
+import { sendMessage, isMember } from '@/plugin/telegram_message/api/message.js'
 import { ElMessage } from 'element-plus'
 import { reactive, ref } from 'vue'
 
@@ -47,7 +66,7 @@ defineOptions({
 
 const telegramMessageForm = ref(null)
 const form = reactive({
-  token: '可以用逗号分隔多个token传入，轮询发送消息，避免触发风控发送失败',
+  token: '可单一可多个，多个token时以英文逗号分隔',
   chat_id: '',
   content: 'HTML示例：<code>1234</code>\nMarkdown示例：*1234*',
   message_type: 'markdown',
@@ -56,6 +75,20 @@ const sendTelegramMessage = async() => {
   const res = await sendMessage(form)
   if (res.code === 0) {
     ElMessage.success('发送成功,请查收')
+  }
+}
+const isMemberForm = reactive({
+  token: '可单一可多个，多个token时以英文逗号分隔',
+  user_id: '',
+  channel_id: ''
+})
+const checkMembership = async () => {
+  const res = await isMember(memberForm);
+  if (res.code === 0) {
+    ElMessage.success('查询成功');
+    ElMessage.success(`是否为频道用户：${res.data}`);
+  } else {
+    ElMessage.error('查询失败');
   }
 }
 </script>

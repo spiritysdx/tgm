@@ -40,7 +40,7 @@ func (p *Telegram_botApi) SendMessage(c *gin.Context) {
 // @Summary 查询用户是否为频道用户
 // @Security  ApiKeyAuth
 // @Produce  application/json
-// @Param    token user_id channel_id  "发送消息必须的参数"
+// @Param    token user_id channel_id  "查询用户是否为频道用户必须的参数"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"发送成功"}"
 // @Router /telegram_bot/isMember [post]
 func (p *Telegram_botApi) IsMember(c *gin.Context) {

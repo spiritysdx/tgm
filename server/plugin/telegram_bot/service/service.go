@@ -58,7 +58,7 @@ func (e *TelegramBotService) IsTgMember(tokens, userID, channelID string) (res s
 	// 英文逗号分隔token
 	tokenList := strings.Split(tokens, ",")
 	var lastError error
-	// 多个token的时候轮询直至查询成功
+	// 多个token的时候轮询直至发送成功
 	for index, token := range tokenList {
 		bot, err := telebot.NewBot(telebot.Settings{
 			Token: token,
@@ -72,7 +72,7 @@ func (e *TelegramBotService) IsTgMember(tokens, userID, channelID string) (res s
 		userIDInt, err := strconv.ParseInt(userID, 10, 64)
 		if err != nil {
 			// user_id 转换失败
-			lastError = errors.New(fmt.Sprintf("userID cover failed for token%d: %v", index, err))
+			lastError = errors.New(fmt.Sprintf("chatID cover failed for token%d: %v with %v", index, err, userID))
 			continue
 		}
 		channelIDInt, err := strconv.ParseInt(channelID, 10, 64)

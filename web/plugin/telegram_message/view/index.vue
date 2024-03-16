@@ -77,7 +77,7 @@ const sendTelegramMessage = async() => {
     ElMessage.success('发送成功,请查收')
   }
 }
-const isMemberForm = reactive({
+const memberForm = reactive({
   token: '可单一可多个，多个token时以英文逗号分隔',
   user_id: '',
   channel_id: ''

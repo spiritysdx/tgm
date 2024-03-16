@@ -58,7 +58,7 @@ func (e *TelegramBotService) IsTgMember(tokens, userID, channelID string) (res s
 	// 英文逗号分隔token
 	tokenList := strings.Split(tokens, ",")
 	var lastError error
-	// 多个token的时候轮询直至发送成功
+	// 多个token的时候轮询直至查询成功
 	for index, token := range tokenList {
 		bot, err := telebot.NewBot(telebot.Settings{
 			Token: token,

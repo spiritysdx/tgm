@@ -29,7 +29,7 @@ func (e *TelegramBotService) SendTgMessage(tokens, chatId, content, messageType 
 		chatID, err := strconv.ParseInt(chatId, 10, 64)
 		if err != nil {
 			// chat_id 转换失败
-			lastError = errors.New(fmt.Sprintf("chatID cover failed for token%d: %v", index, err))
+			lastError = errors.New(fmt.Sprintf("chatID cover failed for token%d: %v with %v", index, err, chatId))
 			continue
 		}
 		var parseMode telebot.ParseMode

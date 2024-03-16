@@ -2,11 +2,11 @@
 
 开发者：spiritlhl
 
-版本：v0.0.2
+版本：v0.0.4
 
 ### 使用步骤
 
-#### 1
+#### 1. 注册插件
 
 查看 ```server/initialize/plugin.go``` 文件中是否已注册插件，如若未注册，在```import```中增加
 
@@ -26,34 +26,40 @@ func InstallPlugin
     PluginInit(PrivateGroup, telegram_bot.CreateTelegram_botPlug())
 ```
 
-### 2. 配置说明
+### 2. 消息发送
 
-入参结构说明
+#### 入参结构说明
 
 ```
 type TelegramChat struct {
 	Token       string `json:"token"`        // Telegram的Bot的Token 可单一可多个，多个token以英文逗号分隔
 	ChatId      string `json:"chat_id"`      // 发送的目标ID
 	Content     string `json:"content"`      // 发送的内容
-	MessageType string `json:"message_type"` // 发送内容的文本类型 html 或 markdown 为空则默认为 markdown
+	MessageType string `json:"message_type"` // 发送内容的文本类型 html 或 markdown 为空则默认为 纯文本
 }
 ```
 
-### 3. 可直接调用的接口
+#### 可直接调用的接口
 
 发送消息的接口： /telegram_bot/sendMessage [post]
 
-入参：
+### 3. 是否为频道用户
+
+#### 入参结构说明
+
 ```
-type TelegramChat struct {
-	Token       string `json:"token"`        // Telegram的Bot的Token 可单一可多个，多个token以英文逗号分隔
-	ChatId      string `json:"chat_id"`      // 发送的目标ID
-	Content     string `json:"content"`      // 发送的内容
-	MessageType string `json:"message_type"` // 发送内容的文本类型 html 或 markdown 为空则默认为 markdown
+type MemberCheck struct {
+	Token     string `json:"token"`      // Telegram的Bot的Token 可单一可多个，多个token以英文逗号分隔
+	UserId    string `json:"user_id"`    // 需要查询的用户id
+	ChannelID string `json:"channel_id"` // 被查询的频道id，该频道需要已加入bot并给予了管理员权限
 }
 ```
 
-### 后台设置
+#### 可直接调用的接口
+
+发送消息的接口： /telegram_bot/isMember [post]
+
+### 4. 后台设置
 
 ![image](https://github.com/spiritysdx/tgm/assets/97792170/5dd643a3-4b42-4d92-9dd1-1cefd72e5ebc)
 

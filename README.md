@@ -12,3 +12,5 @@
 - [x] 支持html格式和markdown格式的文本内容
 - [x] 支持使用单一/多个Bot的token(英文逗号分隔后输入)，多个token避免触发Bot的消息发送频率的风控，确保消息一定发出
 - [x] 制作接口，通过Bot获取所在频道是否存在对应user_id的用户
+
+具体部署说明见 server/plugin/telegram_bot 下的 README.md 说明

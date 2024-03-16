@@ -12,5 +12,6 @@ func (s *Telegram_botRouter) InitTelegram_botRouter(Router *gin.RouterGroup) {
 	plugApi := api.ApiGroupApp.Telegram_botApi
 	{
 		plugRouter.POST("sendMessage", plugApi.SendMessage)
+		plugRouter.POST("isMember", plugApi.IsMember)
 	}
 }

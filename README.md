@@ -18,3 +18,7 @@
 注意：发送消息的bot必须在发送前与客户有私聊过，否则发送不出去。
 
 注意：查询频道用户的bot必须在频道中为管理员权限。
+
+界面展示
+
+![image](https://github.com/spiritysdx/tgm/assets/97792170/4e4880d9-2e2c-4b2e-bcb3-c8fcd611a5e6)

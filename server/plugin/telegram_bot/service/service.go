@@ -11,6 +11,7 @@ import (
 
 type TelegramBotService struct{}
 
+// SendTgMessage 发送TG消息
 func (e *TelegramBotService) SendTgMessage(tokens, chatId, content, messageType string) (res string, err error) {
 	// 英文逗号分隔token
 	tokenList := strings.Split(tokens, ",")
@@ -41,19 +42,70 @@ func (e *TelegramBotService) SendTgMessage(tokens, chatId, content, messageType 
 		default:
 			parseMode = ""
 		}
-		_, err = bot.Send(&telebot.Chat{ID: chatID}, content, &telebot.SendOptions{ParseMode: parseMode})
+		msg, err := bot.Send(&telebot.Chat{ID: chatID}, content, &telebot.SendOptions{ParseMode: parseMode})
 		if err != nil {
 			// 发送失败
 			lastError = errors.New(fmt.Sprintf("bot send message failed for token%d: %v", index, err))
 			continue
 		}
 		// 发送成功
-		return fmt.Sprintf("bot send message success with token%d", index), nil
+		return strconv.Itoa(msg.ID), nil
 	}
 	// 全部token发送都失败了
 	return "bot send message failed", lastError
 }
 
+// EditTgMessage 修改TG消息
+func (e *TelegramBotService) EditTgMessage(tokens, chatId, messageId, content, messageType string) (res string, err error) {
+	// 英文逗号分隔token
+	tokenList := strings.Split(tokens, ",")
+	var lastError error
+	// 多个token的时候轮询直至修改成功
+	for index, token := range tokenList {
+		bot, err := telebot.NewBot(telebot.Settings{
+			Token:  token,
+			Poller: &telebot.LongPoller{Timeout: 3 * time.Second},
+		})
+		if err != nil {
+			// 初始化失败
+			lastError = errors.New(fmt.Sprintf("bot initialise failed for token%d: %v", index, err))
+			continue
+		}
+		chatID, err1 := strconv.ParseInt(chatId, 10, 64)
+		if err1 != nil {
+			// chat_id 转换失败
+			lastError = errors.New(fmt.Sprintf("chatID cover failed for token%d: %v with %v", index, err1, chatId))
+			continue
+		}
+		messageID, err2 := strconv.Atoi(messageId)
+		if err2 != nil {
+			// chat_id 转换失败
+			lastError = errors.New(fmt.Sprintf("messageId cover failed for token%d: %v with %v", index, err2, chatId))
+			continue
+		}
+		var parseMode telebot.ParseMode
+		switch messageType {
+		case "html":
+			parseMode = telebot.ModeHTML
+		case "markdown":
+			parseMode = telebot.ModeMarkdown
+		default:
+			parseMode = ""
+		}
+		_, err = bot.Edit(&telebot.Message{ID: messageID, Chat: &telebot.Chat{ID: chatID}}, content,
+			&telebot.SendOptions{ParseMode: parseMode})
+		if err != nil {
+			// 修改失败
+			lastError = errors.New(fmt.Sprintf("bot edit message failed for token%d: %v", index, err))
+			continue
+		}
+		// 修改成功
+		return fmt.Sprintf("bot edit message success with token%d", index), nil
+	}
+	return "", lastError
+}
+
+// IsTgMember 判断是否为TG频道用户
 func (e *TelegramBotService) IsTgMember(tokens, userID, channelID string) (res string, err error) {
 	// 英文逗号分隔token
 	tokenList := strings.Split(tokens, ",")

@@ -39,7 +39,11 @@ type TelegramChat struct {
 
 发送消息的接口： /telegram_bot/sendMessage [post]
 
-### 3. 是否为频道用户
+### 3. 消息修改
+
+暂时没写接口和前端页面，详见 ```server/plugin/telegram_bot/service/service.go``` 的 ```EditTgMessage``` 函数
+
+### 4. 是否为频道用户
 
 #### 入参结构说明
 

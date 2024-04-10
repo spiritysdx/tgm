@@ -12,6 +12,7 @@ import (
 type TelegramBotService struct{}
 
 // SendTgMessage 发送TG消息
+// 回传结果 res 为消息ID或报错文本内容 err 为具体报错内容
 func (e *TelegramBotService) SendTgMessage(tokens, chatId, content, messageType string) (res string, err error) {
 	// 英文逗号分隔token
 	tokenList := strings.Split(tokens, ",")
@@ -42,7 +43,7 @@ func (e *TelegramBotService) SendTgMessage(tokens, chatId, content, messageType 
 		default:
 			parseMode = ""
 		}
-		msg, err := bot.Send(&telebot.Chat{ID: chatID}, content, &telebot.SendOptions{ParseMode: parseMode})
+		msg, err := bot.Send(&telebot.Chat{ID: chatID}, content, &telebot.SendOptions{ParseMode: parseMode}, telebot.NoPreview)
 		if err != nil {
 			// 发送失败
 			lastError = errors.New(fmt.Sprintf("bot send message failed for token%d: %v", index, err))
@@ -93,7 +94,7 @@ func (e *TelegramBotService) EditTgMessage(tokens, chatId, messageId, content, m
 			parseMode = ""
 		}
 		_, err = bot.Edit(&telebot.Message{ID: messageID, Chat: &telebot.Chat{ID: chatID}}, content,
-			&telebot.SendOptions{ParseMode: parseMode})
+			&telebot.SendOptions{ParseMode: parseMode}, telebot.NoPreview)
 		if err != nil {
 			// 修改失败
 			lastError = errors.New(fmt.Sprintf("bot edit message failed for token%d: %v", index, err))

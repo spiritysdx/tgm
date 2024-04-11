@@ -93,7 +93,7 @@ func (e *TelegramBotService) EditTgMessage(tokens, chatId, messageId, content, m
 		default:
 			parseMode = ""
 		}
-		_, err = bot.Edit(&telebot.Message{ID: messageID, Chat: &telebot.Chat{ID: chatID}}, content,
+		msg, err := bot.Edit(&telebot.Message{ID: messageID, Chat: &telebot.Chat{ID: chatID}}, content,
 			&telebot.SendOptions{ParseMode: parseMode}, telebot.NoPreview)
 		if err != nil {
 			// 修改失败
@@ -101,7 +101,7 @@ func (e *TelegramBotService) EditTgMessage(tokens, chatId, messageId, content, m
 			continue
 		}
 		// 修改成功
-		return fmt.Sprintf("bot edit message success with token%d", index), nil
+		return strconv.Itoa(msg.ID), nil
 	}
 	return "", lastError
 }
